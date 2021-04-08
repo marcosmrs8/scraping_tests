@@ -19,8 +19,7 @@ data = response.text
 soup = BeautifulSoup(data, "html.parser")
 
 price_list = soup.find_all("p", class_="m82tat-3 kVYbKp sc-bdVaJa iTBXOV")
-# price_list1 = soup.select("div.m82tat-3 kVYbKp sc-bdVaJa iTBXOV ")
-#
+
 all_prices = []
 for i in price_list:
     price = i.text[8:-1].replace(u'\xa0', u' ')
@@ -32,42 +31,36 @@ for i in price_list:
 address_list = soup.find_all("div", class_="hhh4j4-3 cJuvGy")
 all_adresses = [item.text for item in address_list if item.text != '']
 
-# print(all_adresses)
-
 link_list = soup.find_all("a", class_="sc-15oj7uq-0 hLbavN")
 all_links =[]
 for element in link_list:
-    links = 'https://www.quintoandar.com.br' + element['href']
-    print(links)
-    # try:
-    #     links = 'https://www.quintoandar.com.br' + element['href']
-    #     all_links.append(links)
-    #     print(all_links)
-    # except Exception:
-    #     links = 'https://www.quintoandar.com.br' + element['href']
-    #     print(links)
-#
-# # https://docs.google.com/forms/d/e/1FAIpQLSdizckdxD4zsos2eWZlubJDVoo1D3H0ii7tmUTHSLT-F2V1lg/viewform?usp=sf_link
-#
-# driver = webdriver.Chrome(executable_path="A:\development\chromedriver.exe")
-#
-# for item in range(len(all_links)):
-#     print(len(all_links))
-#     driver.get('https://docs.google.com/forms/d/e/1FAIpQLSdizckdxD4zsos2eWZlubJDVoo1D3H0ii7tmUTHSLT-F2V1lg/viewform?usp=sf_link')
-#
-#     time.sleep(2)
-#     address = driver.find_element_by_xpath('/html/body/div/div[2]/form/div[2]/div/div[2]/div[1]/div/div/div[2]/div/div[1]/div/div[1]/input')
-#     price = driver.find_element_by_xpath('/html/body/div/div[2]/form/div[2]/div/div[2]/div[2]/div/div/div[2]/div/div[1]/div/div[1]/input')
-#
-#     links = driver.find_element_by_xpath('/html/body/div/div[2]/form/div[2]/div/div[2]/div[3]/div/div/div[2]/div/div[1]/div/div[1]/input')
-#     submit = driver.find_element_by_xpath('/html/body/div/div[2]/form/div[2]/div/div[3]/div[1]/div/div/span/span')
-#
-#     address.send_keys(all_adresses[item])
-#     price.send_keys(all_prices[item])
-#     links.send_keys(all_links[item])
-#     submit.click()
-#
-#
+
+    try:
+        links = 'https://www.quintoandar.com.br' + element['href']
+        all_links.append(links)
+        print(all_links)
+    except Exception:
+        links = 'https://www.quintoandar.com.br' + element['href']
+        print(links)
+
+driver = webdriver.Chrome(executable_path="A:\development\chromedriver.exe")
+for item in range(len(all_links)):
+    print(len(all_links))
+    driver.get('https://docs.google.com/forms/d/e/1FAIpQLSdizckdxD4zsos2eWZlubJDVoo1D3H0ii7tmUTHSLT-F2V1lg/viewform?usp=sf_link')
+    time.sleep(2)
+    
+    
+    address = driver.find_element_by_xpath('/html/body/div/div[2]/form/div[2]/div/div[2]/div[1]/div/div/div[2]/div/div[1]/div/div[1]/input')
+    price = driver.find_element_by_xpath('/html/body/div/div[2]/form/div[2]/div/div[2]/div[2]/div/div/div[2]/div/div[1]/div/div[1]/input')
+    links = driver.find_element_by_xpath('/html/body/div/div[2]/form/div[2]/div/div[2]/div[3]/div/div/div[2]/div/div[1]/div/div[1]/input')
+    submit = driver.find_element_by_xpath('/html/body/div/div[2]/form/div[2]/div/div[3]/div[1]/div/div/span/span')
+    
+    
+    address.send_keys(all_adresses[item])
+    price.send_keys(all_prices[item])
+    links.send_keys(all_links[item])
+    submit.click()
+
 
 
 
